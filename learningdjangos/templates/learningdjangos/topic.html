@@ -1,0 +1,36 @@
+{% extends "learningdjangos/base.html" %}
+
+{% block header %}
+    <h2>{{ topic }}</h2>
+{% endblock header %}
+
+{% block content %}
+
+
+    <p>
+        <a href="{% url 'learningdjangos:new_entry' topic.id %}">add new entry</a>
+    </p>
+
+    {% for entry in entries %}
+        <div class="pannel pannel-default">
+            <div class="pannel-heading">
+                <h3>
+                    {{ entry.date_add|date:'M d, Y H:i' }}
+                    <small>
+                        <a href="{% url 'learningdjangos:edit_entry' entry.id %}">
+                            edit entry
+                        </a>
+                    </small>
+                </h3>
+            </div>
+            <div class="pannel-body">
+                {{ entry.text|linebreaks }}
+            </div>
+        </div> <!-- pannel -->
+    {% empty %}
+            <li>
+                There is no entry for this topic yet.
+            </li>
+    {% endfor %}
+
+{% endblock content %}
